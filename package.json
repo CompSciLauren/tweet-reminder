@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/CompSciLauren/tweet-reminder#readme",
   "dependencies": {
+    "express": "^4.16.3",
     "twilio": "^3.18.0",
     "twitter": "^1.7.1"
   }

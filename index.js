@@ -1,7 +1,6 @@
 const accountSid = process.env.ACCOUNTSID;
 const authToken = process.env.AUTHTOKEN;
-console.log("accountSid", process.env.ACCOUNTSID)
-console.log("authToken", process.env.AUTHTOKEN);
+
 const twilio = require('twilio');
 const client = new twilio(accountSid, authToken);
 console.log(client);

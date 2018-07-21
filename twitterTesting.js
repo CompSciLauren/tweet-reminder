@@ -7,9 +7,11 @@ const client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-const params = {screen_name: 'compscilauren'};
+const params = {screen_name: 'compscilauren', count: '10'};
 client.get('statuses/user_timeline', params, function(error, tweets, response) {
   if (!error) {
-    console.log(tweets);
+    const userTweets = tweets.map(tweets => tweets.text);
+    const filteredUserTweets = userTweets.filter(userTweets => userTweets.includes('#100DaysOfCode'));
+    console.log(filteredUserTweets);
   }
 });
