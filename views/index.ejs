@@ -27,7 +27,7 @@ header {
 nav {
     float: right;
     width: 30%;
-    height: 300px; /* only for demonstration, should be removed */
+    height: 600px; /* only for demonstration, should be removed */
     background: #ccc;
     padding: 20px;
     text-align: right;
@@ -44,7 +44,7 @@ article {
     padding: 20px;
     width: 70%;
     background-color: #f1f1f1;
-    height: 300px; /* only for demonstration, should be removed */
+    height: 600px; /* only for demonstration, should be removed */
 }
 
 /* Clear floats after the columns */
@@ -111,7 +111,7 @@ footer {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"</script></script>
 <script>
     $(function() {
-        $('#calendar').fullCalendar();
+        $('#calendar').fullCalendar({fixedWeekCount: false, contentHeight: 450});
     });
 </script>
 </body>
