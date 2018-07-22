@@ -1,6 +1,8 @@
 const Twitter = require("twitter");
 const moment = require("moment");
 
+const index = require("./index");
+
 const client = new Twitter({
   consumer_key: process.env.CONSUMER_KEY,
   consumer_secret: process.env.CONSUMER_SECRET,
@@ -39,7 +41,7 @@ module.exports = {
       });
     });
   },
-  createEvents: async function createEventsForCalendar(twitterhandle, hashtag) {
+  createEvents: async function createEventsForCalendar(twitterhandle, hashtag, testSMS) {
 
     const params = {
       screen_name: twitterhandle
@@ -59,12 +61,14 @@ module.exports = {
           if (!dateMap[dateStr]) {
             dateMap[dateStr] = false;
 
-            if (tweets[i].text.includes('#'+hashtag)) {
+            if (tweets[i].text.includes("#"+hashtag)) {
               dateMap[dateStr] = true;
             }
           }
         }
-
+        if (testSMS == "Yes") {
+          index.sendText();
+        }
         resolve(dateMap);
       });
     });

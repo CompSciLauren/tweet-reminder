@@ -16,7 +16,7 @@ $(function() {
               };
               return event;
           });
-                  
+
           $("#calendar").fullCalendar({
             fixedWeekCount: false,
             contentHeight: 450,

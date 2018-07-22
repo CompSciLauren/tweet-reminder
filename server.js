@@ -3,22 +3,20 @@ const app = express();
 const moment = require('moment');
 
 const twitterTesting = require("./twitterTesting");
-const index = require("./index");
 
 app.use(express.static('static'));
 app.set("view engine", "ejs");
 app.set("views", process.cwd() + "/views");
 
 app.get("/", async function(req, res) {
-  console.log(req.query);
   const result = await twitterTesting.checkIfPosted();
   res.render("index", { posted: result });
 });
 
 app.get('/tweetStatus', (req, res) => {
-    const { twitterhandle, hashtag } = req.query;
+    const { twitterhandle, hashtag, testSMS } = req.query;
 
-  twitterTesting.createEvents(twitterhandle, hashtag).then((dateMap) => {
+  twitterTesting.createEvents(twitterhandle, hashtag, testSMS).then((dateMap) => {
     res.json(dateMap);
   })
 });
