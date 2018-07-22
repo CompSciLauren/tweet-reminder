@@ -1,7 +1,9 @@
 $(function() {
 
+  const getParams = window.location.href.split('?')[1];
+
   $.ajax({
-      url: 'http://localhost:5000/tweetStatus',
+      url: `http://localhost:5000/tweetStatus/?${getParams}`,
       success: (data) => {
           console.log(data)
 

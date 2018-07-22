@@ -39,12 +39,10 @@ module.exports = {
       });
     });
   },
-  createEvents: async function createEventsForCalendar() {
-    let lastRelevantTweetID = "1009109400051576800";
+  createEvents: async function createEventsForCalendar(twitterhandle, hashtag) {
 
     const params = {
-      screen_name: "compscilauren",
-      since_id: lastRelevantTweetID
+      screen_name: twitterhandle
     };
 
     return new Promise((resolve, reject) => {
@@ -61,7 +59,7 @@ module.exports = {
           if (!dateMap[dateStr]) {
             dateMap[dateStr] = false;
 
-            if (tweets[i].text.includes("#100DaysOfCode")) {
+            if (tweets[i].text.includes('#'+hashtag)) {
               dateMap[dateStr] = true;
             }
           }

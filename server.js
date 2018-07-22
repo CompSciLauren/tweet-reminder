@@ -10,12 +10,15 @@ app.set("view engine", "ejs");
 app.set("views", process.cwd() + "/views");
 
 app.get("/", async function(req, res) {
+  console.log(req.query);
   const result = await twitterTesting.checkIfPosted();
   res.render("index", { posted: result });
 });
 
 app.get('/tweetStatus', (req, res) => {
-  twitterTesting.createEvents().then((dateMap) => {
+    const { twitterhandle, hashtag } = req.query;
+
+  twitterTesting.createEvents(twitterhandle, hashtag).then((dateMap) => {
     res.json(dateMap);
   })
 });

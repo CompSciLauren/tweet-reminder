@@ -93,13 +93,13 @@
             <h1>
                 <center>Settings</center>
             </h1>
-            <form action="/action_page.php">
+            <form action="/">
                 Twitter Handle:
-                <input type="text" name="twitterHandle" value="CompSciLauren">
+                <input type="text" name="twitterhandle" value="">
                 <br> Hashtag to Track:
-                <input type="text" name="hashtagToTrack" value="#100DaysOfCode">
+                <input type="text" name="hashtag" value="">
                 <br> Personal Phone Number:
-                <input type="text" name="personalPhoneNumber" value="+18167690856">
+                <input type="text" name="personalPhoneNumber" value="">
                 <br> Enable Extra Motivators:
                 <input type="radio" name="mascot" value="Yes"> Yes
                 <input type="radio" name="mascot" value="No" checked> No
@@ -107,6 +107,14 @@
                 <br>
                 <center>
                     <input type="submit" value="Save Changes">
+                </center>
+            </form>
+
+            <br />
+
+            <form action="/action_page.php">
+                <center>
+                    <input type="submit" value="Send Test Message">
                 </center>
             </form>
         </nav>
