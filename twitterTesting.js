@@ -23,10 +23,40 @@ module.exports = {
           return reject(error);
         }
 
+        const tweetTexts = tweets.map(tweets => tweets.text);
+        const tweetTimes = tweets.map(tweets => tweets.created_at);
+        const filteredTweetTimes = [];
+        for (let i = 0; i < tweetTimes.length; i++) {
+          if (tweetTexts[i].includes("#100DaysOfCode")) {
+            filteredTweetTimes.push(tweetTimes[i]);
+          }
+        }
+
+        const isThereTweetForCurrentDay = filteredTweetTimes.some(tweetTime =>
+          moment(tweetTime).isSame(moment(), "day")
+        );
+        resolve(isThereTweetForCurrentDay);
+      });
+    });
+  },
+  createEvents: async function createEventsForCalendar() {
+    let lastRelevantTweetID = "1009109400051576800";
+
+    const params = {
+      screen_name: "compscilauren",
+      since_id: lastRelevantTweetID
+    };
+
+    return new Promise((resolve, reject) => {
+      client.get("statuses/user_timeline", params, function(error, tweets) {
+        if (error) {
+          return reject(error);
+        }
+
         const dateMap = {};
         for (let i = 0; i < tweets.length; i++) {
           const date = moment(tweets[i].created_at);
-          const dateStr = date.format('MM-DD-YYYY');
+          const dateStr = date.format("MM-DD-YYYY");
 
           if (!dateMap[dateStr]) {
             dateMap[dateStr] = false;
@@ -35,32 +65,9 @@ module.exports = {
               dateMap[dateStr] = true;
             }
           }
-        };
+        }
 
         resolve(dateMap);
-
-        // const tweetTexts = tweets.map(tweets => tweets.text);
-        // const tweetTimes = tweets.map(tweets => tweets.created_at);
-        // const filteredTweetTimes = [];
-        // for (let i = 0; i < tweetTimes.length; i++) {
-        //   if (tweetTexts[i].includes("#100DaysOfCode")) {
-        //     filteredTweetTimes.push(tweetTimes[i]);
-        //   }
-        // }
-
-        // for (let i = 0; i < filteredTweetTimes.length; i++) {
-        //   //if (filteredTweetTimes[i] == day) {
-        //     // green color
-        //   //}
-        //   //else {
-        //     // red color
-        //   //}
-        // }
-
-        // const isThereTweetForCurrentDay = filteredTweetTimes.some(tweetTime =>
-        //   moment(tweetTime).isSame(moment(), "day")
-        // );
-        // resolve(isThereTweetForCurrentDay);
       });
     });
   }
