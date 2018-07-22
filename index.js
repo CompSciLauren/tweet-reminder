@@ -1,12 +1,15 @@
 const accountSid = process.env.ACCOUNTSID;
 const authToken = process.env.AUTHTOKEN;
 
-const twilio = require('twilio');
+const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
-console.log(client);
-client.messages.create({
-    body: 'Hello from CompSciLauren!!!',
-    to: process.env.PERSONAL_PHONE_NUMBER,
-    from: process.env.TWILIO_PHONE_NUMBER
-})
-.then((message) => console.log(message.sid));
+
+module.exports = {
+  sendText: function sendText() {
+    client.messages.create({
+      body: "You haven't tweeted your hashtag today!",
+      to: process.env.PERSONAL_PHONE_NUMBER,
+      from: process.env.TWILIO_PHONE_NUMBER
+    });
+  }
+};

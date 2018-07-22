@@ -8,28 +8,35 @@ const client = new Twitter({
   access_token_secret: process.env.ACCESS_TOKEN_SECRET
 });
 
-let lastRelevantTweetID = "1020532668457418800";
+module.exports = {
+  checkIfPosted: async function checkIfPostedForDay() {
+    let lastRelevantTweetID = "1020532668457418800";
 
-const params = { screen_name: "compscilauren", since_id: lastRelevantTweetID };
-client.get("statuses/user_timeline", params, function(error, tweets, response) {
-  if (!error) {
-    const tweetTexts = tweets.map(tweets => tweets.text);
-    const tweetTimes = tweets.map(tweets => tweets.created_at);
+    const params = {
+      screen_name: "compscilauren",
+      since_id: lastRelevantTweetID
+    };
 
-    const filteredTweets = tweetTexts.filter(tweetTexts =>
-      tweetTexts.includes("#100DaysOfCode")
-    );
-
-    if (filteredTweets != "") {
-      for (let i = 0; i < filteredTweets.length; i++) {
-        if (moment(tweetTimes[i]).isSame(moment(), "day")) {
-          console.log("You have already tweeted the desired hashtag today.");
-        } else {
-          console.log("You have not tweeted the desired hashtag today.");
+    return new Promise((resolve, reject) => {
+      client.get("statuses/user_timeline", params, function(error, tweets) {
+        if (error) {
+          return reject(error);
         }
-      }
-    } else {
-      console.log("You have not tweeted the desired hashtag today.");
-    }
+
+        const tweetTexts = tweets.map(tweets => tweets.text);
+        const tweetTimes = tweets.map(tweets => tweets.created_at);
+        const filteredTweetTimes = [];
+        for (let i = 0; i < tweetTimes.length; i++) {
+          if (tweetTexts[i].includes("#100DaysOfCode")) {
+            filteredTweetTimes.push(tweetTimes[i]);
+          }
+        }
+
+        const isThereTweetForCurrentDay = filteredTweetTimes.some(tweetTime =>
+          moment(tweetTime).isSame(moment(), "day")
+        );
+        resolve(isThereTweetForCurrentDay);
+      });
+    });
   }
-});
+};
