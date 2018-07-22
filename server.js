@@ -9,8 +9,8 @@ app.set("views", process.cwd() + "/views");
 
 const checkIfPostedToday = () => true;
 
-app.get("/", function(req, res) {
-  const result = checkIfPostedToday();
+app.get("/", async function(req, res) {
+  const result = await twitterTesting.checkIfPosted();
   res.render("index", { posted: result });
 });
 
@@ -23,7 +23,7 @@ setInterval(function sendTextMessageOnInterval() {
     if (result == true) {
       console.log("User tweeted today.");
     } else {
-      index.sendText();
+      //index.sendText();
       console.log("Sent user SMS reminding them to tweet today.");
     }
   });

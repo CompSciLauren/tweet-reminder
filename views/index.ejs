@@ -1,10 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+<style>
+* {
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+    background-color: #666;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+    float: right;
+    width: 30%;
+    height: 300px; /* only for demonstration, should be removed */
+    background: #ccc;
+    padding: 20px;
+    text-align: right;
+}
+
+/* Style the list inside the menu */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 70%;
+    background-color: #f1f1f1;
+    height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the footer */
+footer {
+    background-color: #777;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+    nav, article {
+        width: 100%;
+        height: auto;
+    }
+}
+
+</style>
+</head>
 <body>
-    <h1>Hi from
-        <%= posted %>
-    </h1>
-</body>
+<header>
+  <h2>Tweet sent today? <%= posted %>!</h2>
+</header>
 
+<section>
+  <nav>
+      <h1><center>Settings</center></h1>
+      <form action="/action_page.php">
+        Hashtag to Track:
+        <input type="text" name="hashtagToTrack" value="#">
+        <br>
+        Personal Phone Number:
+        <input type="text" name="personalPhoneNumber" value="+1">
+        <br>
+        Enable Extra Motivators:
+        <input type="radio" name="mascot" value="Yes"> Yes
+        <input type="radio" name="mascot" value="No" checked> No
+        <br><br>
+        <center><input type="submit" value="Save Changes"></center>
+      </form>
+  </nav>
+
+  <article>
+    <h1><center>My Progress</center></h1>
+    <div id="calendar"></div>
+  </article>
+</section>
+<footer>
+  <p>@CompSciLauren</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"</script></script>
+<script>
+    $(function() {
+        $('#calendar').fullCalendar();
+    });
+</script>
+</body>
 </html>
