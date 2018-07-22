@@ -5,10 +5,10 @@ const twilio = require("twilio");
 const client = new twilio(accountSid, authToken);
 
 module.exports = {
-  sendText: function sendText() {
+  sendText: function sendText(phonenumber) {
     client.messages.create({
       body: "You haven't tweeted your hashtag today!",
-      to: process.env.PERSONAL_PHONE_NUMBER,
+      to: phonenumber,
       from: process.env.TWILIO_PHONE_NUMBER
     });
   }

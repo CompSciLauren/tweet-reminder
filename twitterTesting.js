@@ -27,6 +27,7 @@ module.exports = {
 
         const tweetTexts = tweets.map(tweets => tweets.text);
         const tweetTimes = tweets.map(tweets => tweets.created_at);
+
         const filteredTweetTimes = [];
         for (let i = 0; i < tweetTimes.length; i++) {
           if (tweetTexts[i].includes("#100DaysOfCode")) {
@@ -41,8 +42,12 @@ module.exports = {
       });
     });
   },
-  createEvents: async function createEventsForCalendar(twitterhandle, hashtag, testSMS) {
-
+  createEvents: async function createEventsForCalendar(
+    twitterhandle,
+    hashtag,
+    testSMS,
+    phonenumber
+  ) {
     const params = {
       screen_name: twitterhandle
     };
@@ -59,15 +64,15 @@ module.exports = {
           const dateStr = date.format("MM-DD-YYYY");
 
           if (!dateMap[dateStr]) {
-            dateMap[dateStr] = false;
+            dateMap[dateStr] = { hasHashTag: false };
 
-            if (tweets[i].text.includes("#"+hashtag)) {
-              dateMap[dateStr] = true;
+            if (tweets[i].text.includes("#" + hashtag)) {
+              dateMap[dateStr] = { hasHashTag: true, id_str: tweets[i].id_str };
             }
           }
         }
         if (testSMS == "Yes") {
-          index.sendText();
+          index.sendText(phonenumber);
         }
         resolve(dateMap);
       });
